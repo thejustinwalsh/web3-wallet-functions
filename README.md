@@ -1,10 +1,9 @@
-# Unicorn Functions
-> Quick and dirty Web3 wrapper function around the Zerion Wallet API
+# Web3 Wallet Functions
+> Quick and dirty Web3 wrapper functions around the Zerion Wallet API
 
   - A quick and dirty wrapper around the Zerion Wallet API
   - Dead simple CORS policy to enable use from any domain for web / expo snack demonstration purposes
   - Not intended for production use
-  - 🦄
 
 ## Quick Start
 
