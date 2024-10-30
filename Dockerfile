@@ -1,4 +1,4 @@
-FROM node:22
+FROM arm64v8/node:22
 
 # Create app directory
 WORKDIR /app
