@@ -9,15 +9,15 @@
 
 .env file should contain the following:
 ```.env
+PORT=3000
 ZERION_API_KEY=YOUR_API_KEY
-SUNSET_DATE=DAY_TO_STOP_USING_API
 ```
 
 ```bash
 # Development Server
-vercel dev
-# Deploy to Production
-vercel deploy --prod
+npm run dev
+# Production Server
+npm start
 ```
 
 ## Usage
