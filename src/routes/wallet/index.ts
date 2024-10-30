@@ -6,8 +6,19 @@ const wallet: FastifyPluginAsyncZod = async (fastify, opts): Promise<void> => {
   fastify.setValidatorCompiler(validatorCompiler);
   fastify.setSerializerCompiler(serializerCompiler);
 
+  // TODO: CORS preflight, filter allowed origins that match expo-snack, localhost, and native user-agents
+  fastify.options("/*", async function (_, reply) {
+    reply.status(204)
+      .header('Content-Length', '0')
+      .header('Access-Control-Allow-Origin', '*')
+      .header("Access-Control-Allow-Headers", "*")
+      .header('Access-Control-Allow-Methods', 'GET')
+      .send()
+  });
+
   // GET /wallet/health
-  fastify.get("/health", async function (_, reply) {
+  fastify.get("/health", async function (request, reply) {
+    reply.header('Access-Control-Allow-Origin', '*');
     reply.status(200).send({ status: "ok" });
   });
 
@@ -25,20 +36,11 @@ const wallet: FastifyPluginAsyncZod = async (fastify, opts): Promise<void> => {
       },
     },
     async function (request, reply) {
-      // !HACK: Lazy CORS
-      reply.header("Access-Control-Allow-Methods", "GET");
-      reply.header("Access-Control-Allow-Origin", "*");
-      reply.header("Access-Control-Allow-Headers", "*");
-      if (request.method === "OPTIONS") {
-        console.log(request.method, request.headers.origin);
-        reply.status(204).send(null);
-        return;
-      }
+      reply.header('Access-Control-Allow-Origin', '*');
 
       const { ZERION_API_KEY } = fastify.getEnvs<{
         ZERION_API_KEY: string;
       }>();
-      
       const { address } = request.params;
       const { network } = request.query;
 
