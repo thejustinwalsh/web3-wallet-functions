@@ -1,4 +1,4 @@
-FROM arm64v8/node:22
+FROM --platform=linux/arm64 arm64v8/node:22-alpine
 
 # Create app directory
 WORKDIR /app
